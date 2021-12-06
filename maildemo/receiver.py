@@ -36,7 +36,7 @@ def get_attachements(msg):
 class EMailReceiver:
     def __init__(self):
         self.imapserver = 'imap.fzcx.xyz'
-        self.emailuser = "me@fzcx.xyz"
+        self.emailuser = "me1@fzcx.xyz"
         self.emailpasswd = "12345678"
 
     def login(self):
