@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import smtplib
+from email.message import EmailMessage
 from email.mime.text import MIMEText
 from email.header import Header
 import email
@@ -43,14 +44,26 @@ class EMailSender:
             body = str(get_body(e), encoding='gb2312')  # utf-8 gb2312 GB18030解析中文日文英文
             print("邮件内容是:%s" % body)
 
+            # try:
+            #     message = MIMEText(body, 'plain', 'utf-8')
+            #     message['From'] = self.mail_user
+            #     message['To'] = self.receivers[0]
+            #     message['Subject'] = subject
+            #
+            #     self.smtpObj.sendmail(self.mail_user, self.receivers, message.as_string())
+
             try:
-                message = MIMEText(body, 'plain', 'utf-8')
+                # message = e
+                message = EmailMessage()
                 message['From'] = self.mail_user
                 message['To'] = self.receivers[0]
-                message['Subject'] = subject
+                message['Subject'] = 'aaa'
+                # message.set_payload(e.get_payload(0))
+                # bo = e.get_content()
+                message.set_content(body)
+                # message.set_content(get_body(e))
 
-                self.smtpObj.sendmail(self.mail_user, self.receivers, message.as_string())
-
+                self.smtpObj.send_message(message, self.mail_user, self.receivers[0])
 
             except smtplib.SMTPException:
                 print ("Error: 无法发送邮件")

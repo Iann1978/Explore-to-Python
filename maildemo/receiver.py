@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import imaplib, email, os
+from email.parser import BytesParser, Parser
 
 
 # 解析邮件内容
@@ -59,6 +60,8 @@ class EMailReceiver:
         for id in mailidlist:
             result, data = self.conn.fetch(id, '(RFC822)')  # 通过邮件id获取邮件
             e = email.message_from_bytes(data[0][1])
+            from email.policy import default
+            msg = BytesParser(policy=default).parsebytes(data[0][1])
             maillist.append(e)
             subject = email.header.make_header(email.header.decode_header(e['SUBJECT']))
             mail_from = email.header.make_header(email.header.decode_header(e['From']))
