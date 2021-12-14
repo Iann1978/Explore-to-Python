@@ -22,6 +22,9 @@ class EMailSender:
         # self.sender = 'me1@fzcx.xyz'
         self.receivers = ['me@fzcx.xyz']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
+    def addReceiver(self, receiver):
+        self.receivers.append(receiver)
+
     def login(self):
         try:
             self.smtpObj = smtplib.SMTP()
@@ -44,6 +47,8 @@ class EMailSender:
             body = str(get_body(e), encoding='gb2312')  # utf-8 gb2312 GB18030解析中文日文英文
             print("邮件内容是:%s" % body)
 
+            subject = e['SUBJECT']
+            print("邮件的subject是:%s" % subject)
             # try:
             #     message = MIMEText(body, 'plain', 'utf-8')
             #     message['From'] = self.mail_user
@@ -53,17 +58,20 @@ class EMailSender:
             #     self.smtpObj.sendmail(self.mail_user, self.receivers, message.as_string())
 
             try:
-                # message = e
-                message = EmailMessage()
-                message['From'] = self.mail_user
-                message['To'] = self.receivers[0]
-                message['Subject'] = 'aaa'
-                # message.set_payload(e.get_payload(0))
-                # bo = e.get_content()
-                message.set_content(body)
-                # message.set_content(get_body(e))
 
-                self.smtpObj.send_message(message, self.mail_user, self.receivers[0])
+
+                for receiver in self.receivers:
+                    # message = e
+                    message = EmailMessage()
+                    # message['From'] = self.mail_user
+                    message['From'] = 'HeHe<me1@fzcx.xyz>'
+                    message['To'] = receiver
+                    message['Subject'] = subject
+                    # message.set_payload(e.get_payload(0))
+                    # bo = e.get_content()
+                    message.set_content(body)
+                    # message.set_content(get_body(e))
+                    self.smtpObj.send_message(message, self.mail_user, receiver)
 
             except smtplib.SMTPException:
                 print ("Error: 无法发送邮件")
