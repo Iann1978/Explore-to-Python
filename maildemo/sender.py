@@ -40,6 +40,7 @@ class EMailSender:
     def send(self, maillist):
 
         for e in maillist:
+
             subject = email.header.make_header(email.header.decode_header(e['SUBJECT']))
             mail_from = email.header.make_header(email.header.decode_header(e['From']))
             print("邮件的subject是:%s" % subject)
@@ -61,17 +62,19 @@ class EMailSender:
 
 
                 for receiver in self.receivers:
+                    e['To'] = receiver
                     # message = e
                     message = EmailMessage()
+                    # message.set_charset('gb2312')
                     # message['From'] = self.mail_user
                     message['From'] = 'HeHe<me1@fzcx.xyz>'
                     message['To'] = receiver
-                    message['Subject'] = subject
+                    message['Subject'] = "aaa"
                     # message.set_payload(e.get_payload(0))
                     # bo = e.get_content()
                     message.set_content(body)
                     # message.set_content(get_body(e))
-                    self.smtpObj.send_message(message, self.mail_user, receiver)
+                    self.smtpObj.send_message(e, self.mail_user, receiver)
 
             except smtplib.SMTPException:
                 print ("Error: 无法发送邮件")
