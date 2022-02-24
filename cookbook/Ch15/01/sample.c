@@ -25,3 +25,10 @@ int in_mandel(double x0, double y0, int n) {
 	return 1;
 }
 
+/* Divide two numbers */
+int divide(int a, int b, int *remainder) {
+	int quot = a / b;
+	*remainder = a % b;
+	return quot;
+}
+
