@@ -15,3 +15,10 @@ _mod = ctypes.cdll.LoadLibrary(_path)
 gcd = _mod.gcd
 gcd.argtypes = (ctypes.c_int, ctypes.c_int)
 gcd.restype = ctypes.c_int
+
+# int in_mandel(double, double, int)
+in_mandel = _mod.in_mandel
+in_mandel.argtypes = (ctypes.c_double, ctypes.c_double, ctypes.c_int)
+in_mandel.restype = ctypes.c_int
+
+
