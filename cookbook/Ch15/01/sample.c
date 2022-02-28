@@ -32,3 +32,13 @@ int divide(int a, int b, int *remainder) {
 	return quot;
 }
 
+/* Average values in an array */
+double avg(double *a, int n) {
+	int i;
+	double total = 0.0;
+	for (i=0; i<n; i++) {
+		total += a[i];
+	}
+	return total/n;
+}
+
