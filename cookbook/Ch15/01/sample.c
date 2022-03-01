@@ -42,3 +42,15 @@ double avg(double *a, int n) {
 	return total/n;
 }
 
+/* A C data structure */
+typedef struct Point {
+	double x,y;
+} Point;
+
+/* Function involving a C data structure */
+double distance(Point *p1, Point *p2) {
+	double dx = p1->x-p2->x;
+	double dy = p1->y-p2->y;
+	return sqrt(dx*dx+dy*dy);
+}
+
