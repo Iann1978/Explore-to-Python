@@ -44,8 +44,8 @@ double call_func(PyObject *func, double x, double y) {
 
 	// Create the return value
 	//PyFloat_FromString(result);
-	//retval = PyFloat_asDouble(result);
-	retval = PyFloat_AS_DOUBLE(result);
+	retval = Py_Float_asDouble(result);
+	//retval = PyFloat_AS_DOUBLE(result);
 	Py_DECREF(result);
 
 	// Restore previous GIL state and return 
